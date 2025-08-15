@@ -1,69 +1,146 @@
 /* Base */
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
-body { background:#f9f9f9; color:#333; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+body { background:#f6f7fb; color:#2b2f33; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
-/* Layout: footer at bottom */
+/* Layout */
 .home { min-height: 100dvh; display: flex; flex-direction: column; }
 .content { flex: 1; }
 
 /* Hero */
-.hero { padding: 1rem; text-align: center; background:#8d97a1; color:#fff; box-shadow:0 2px 8px rgba(0,0,0,.1); }
-.hero h1 { font-size: 1rem; margin: 0 0 .5rem; }
-.receipt-btn { margin-top:.75rem; padding:.6rem 1.2rem; font-size:1rem; background:#f7c600; color:#222; border:0; border-radius:6px; cursor:pointer; }
-.receipt-btn:hover { background:#e0b800; }
+.hero {
+  background: linear-gradient(135deg, #0f73c9, #0a4f8a);
+  color: #fff; padding: 28px 16px; box-shadow: 0 6px 20px rgba(0,0,0,.12) inset;
+}
+.hero-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
+.hero h1 { margin: 0 0 6px; font-weight: 700; letter-spacing: .2px; }
+.hero p  { margin: 0; opacity: .95; }
+.receipt-btn {
+  margin-top: 14px; padding:.7rem 1.2rem; font-size:1rem; color:#0a3a64; background:#f7c600;
+  border:0; border-radius:10px; cursor:pointer; font-weight:700; box-shadow: 0 6px 14px rgba(0,0,0,.18);
+}
+.receipt-btn:hover { filter: brightness(0.95); }
+
+/* Empty state */
+.empty { display:flex; justify-content:center; padding:32px 16px; }
+.empty-card {
+  width:min(760px, 92vw); background:#fff; border:1px solid #e9e9ee;
+  border-radius:16px; padding:28px; box-shadow:0 12px 30px rgba(16,24,40,.08);
+  text-align:center;
+}
+.empty-title { font-size:1.25rem; font-weight:700; margin-bottom:6px; }
+.empty-sub { color:#5c6269; margin-bottom:14px; }
 
 /* Receipt list */
-.section-title { text-align:center; margin:1rem 0; }
-.receipt-section { padding:1rem; }
-.receipt-grid { display:flex; flex-wrap:wrap; gap:1rem; justify-content:center; }
-.receipt-card { width:280px; border:1px solid #eee; border-radius:12px; padding:12px; background:#fff; box-shadow:0 1px 6px rgba(0,0,0,.05); display:flex; flex-direction:column; justify-content:space-between; }
+.section-title { text-align:center; margin:22px 0 8px; font-size:1.2rem; font-weight:700; }
+.receipt-section { padding: 8px 16px 26px; }
+.receipt-grid {
+  display:grid; gap:16px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  max-width:1100px; margin:0 auto;
+}
+.receipt-card {
+  border:1px solid #ececf3; border-radius:14px; padding:14px;
+  background:#fff; box-shadow:0 6px 16px rgba(16,24,40,.06);
+  display:flex; flex-direction:column; justify-content:space-between;
+  transition: transform .08s ease, box-shadow .12s ease;
+}
+.receipt-card:hover { transform: translateY(-2px); box-shadow:0 10px 24px rgba(16,24,40,.10); }
 .receipt-small { display:flex; gap:12px; align-items:center; }
-.receipt-thumb { width:96px; height:96px; object-fit:cover; border-radius:8px; }
+.receipt-thumb { width:96px; height:96px; object-fit:cover; border-radius:10px; border:1px solid #eee; }
 .receipt-info { font-size:.95rem; }
-.muted-small { font-size:12px; color:#666; }
-.muted-xs { font-size:11px; color:#999; }
-.receipt-buttons { display:flex; gap:8px; margin-top:8px; }
-.print-btn, .delete-btn { padding:.5rem 1rem; border:0; border-radius:6px; color:#fff; cursor:pointer; }
-.print-btn { background:#0077cc; } .print-btn:hover { background:#005fb0; }
-.delete-btn { background:#cc3333; } .delete-btn:hover { background:#b22b2b; }
+.rc-title { font-weight:700; margin:0 0 4px; }
+.muted-small { font-size:12px; color:#6b7280; margin:0; }
+.muted-xs    { font-size:11px; color:#9aa1a9; margin:6px 0 0; }
+.receipt-buttons { display:flex; gap:8px; margin-top:10px; }
+.print-btn, .delete-btn {
+  padding:.55rem 1rem; border:0; border-radius:8px; color:#fff; cursor:pointer; font-weight:600;
+}
+.print-btn  { background:#0f73c9; } .print-btn:hover { background:#0c5da3; }
+.delete-btn { background:#cc3333; } .delete-btn:hover { background:#b12c2c; }
 
 /* Modal */
-.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.5); display:flex; justify-content:center; align-items:center; padding:24px; overflow:auto; z-index:1000; }
-.modal { background:#fff; width:min(720px,92vw); max-height:90vh; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,.2); display:flex; flex-direction:column; padding:20px; }
-.modal h2 { margin:0 0 12px; }
+.modal-overlay { position:fixed; inset:0; background:rgba(2,12,28,.55); display:flex; justify-content:center; align-items:center; padding:24px; overflow:auto; z-index:1000; }
+.modal {
+  background:#fff; width:min(760px,92vw); max-height:90vh; border-radius:16px;
+  box-shadow:0 20px 40px rgba(0,0,0,.25); display:flex; flex-direction:column; padding:18px;
+  animation: pop .12s ease-out;
+}
+@keyframes pop { from { transform: scale(.98); opacity:.6; } to { transform: scale(1); opacity:1; } }
+.modal-title { margin:2px 0 10px; font-size:1.2rem; font-weight:800; }
 .receipt-form { display:flex; flex-direction:column; gap:12px; min-height:0; overflow:hidden; }
-.receipt-form input[type="text"], .receipt-form input[type="file"] { padding:.6rem; border:1px solid #ccc; border-radius:6px; font-size:1rem; }
+
+.input-row { display:flex; flex-direction:column; gap:6px; }
+.block-label { margin-top:6px; margin-bottom:4px; display:block; font-weight:600; }
+.receipt-form input[type="text"],
+.receipt-form input[type="file"] {
+  padding:.65rem .7rem; border:1px solid #d7dbe3; border-radius:8px; font-size:1rem;
+  background:#fbfbfe;
+}
+.receipt-form input[type="text"]:focus,
+.receipt-form input[type="file"]:focus { outline: 2px solid #0f73c933; border-color:#0f73c9; }
 
 /* Lines scroller */
-.lines-scroller { max-height:45vh; overflow:auto; padding-right:4px; border:1px solid #eee; border-radius:8px; padding:8px; background:#fafafa; }
-.line-row { display:flex; gap:8px; align-items:center; margin-bottom:8px; }
-.line-row input { flex:1; }
-.small-btn { padding:6px 10px; border:1px solid #ddd; background:#f6f6f6; border-radius:6px; cursor:pointer; }
-.secondary-btn { align-self:flex-start; padding:6px 10px; border:1px solid #ddd; background:#fff; border-radius:6px; cursor:pointer; }
-.modal-buttons { display:flex; justify-content:flex-end; gap:10px; padding-top:8px; border-top:1px solid #eee; margin-top:4px; }
-.submit-btn { background:#28a745; color:#fff; padding:.6rem 1.2rem; border:0; border-radius:6px; cursor:pointer; }
-.cancel-btn { background:#dc3545; color:#fff; padding:.6rem 1.2rem; border:0; border-radius:6px; cursor:pointer; }
-.submit-btn:hover { background:#218838; } .cancel-btn:hover { background:#c82333; }
-
-/* Footer (sits at bottom via flex) */
-.home-footer { padding:1.2rem; text-align:center; background:#343a40; color:#fff; }
-
-/* Dark theme */
-body.dark { background:#121212; color:#eee; }
-body.dark .hero { background:#1f1f1f; color:#f7c600; }
-body.dark .receipt-card, body.dark .modal { background:#1f1f1f; color:#fff; border-color:#333; box-shadow:0 1px 10px rgba(0,0,0,.5); }
-body.dark .lines-scroller { background:#1b1b1b; border-color:#333; }
-body.dark .receipt-form input[type="text"], body.dark .receipt-form input[type="file"] { background:#2a2a2a; color:#fff; border:1px solid #444; }
-body.dark .home-footer { background:#0f0f0f; }
-
-/* Print: hide app chrome */
-@media print { .hero, .receipt-section, .modal-overlay, .home-footer { display:none !important; } }
-.lines{
-  font-size: 34px;  /* increased from 11pt */
-  line-height: 1.65; /* extra spacing for readability */
-  white-space: pre-wrap;
+.lines-scroller {
+  max-height:45vh; overflow:auto; padding-right:4px; border:1px solid #ececf3; border-radius:10px;
+  padding:10px; background:#fafbff;
 }
-.line{
-  margin: 3mm 0; /* slightly more gap between lines */
+.line-row { display:flex; gap:10px; align-items:center; margin-bottom:10px; }
+.line-row input[type="text"] { flex:1; }
+
+.small-btn {
+  padding:6px 12px; border:1px solid #e2e5ec; background:#fff;
+  border-radius:8px; cursor:pointer; font-weight:700;
 }
+.small-btn:hover { background:#f2f5fb; }
+.small-btn.danger { border-color:#ffd3d6; color:#9f1a22; background:#fff0f1; }
+.small-btn.danger:hover { background:#ffe6e8; }
+
+.secondary-btn {
+  align-self:flex-start; padding:.55rem .9rem; border:1px solid #d7dbe3; background:#fff;
+  border-radius:10px; cursor:pointer; font-weight:700;
+}
+.secondary-btn:hover { background:#f7f9ff; }
+
+.add-row-buttons { display:flex; gap:8px; }
+
+/* Footer (sticks at bottom via flex) */
+.home-footer { padding:1.2rem; text-align:center; background:#0a243d; color:#e9f2ff; }
+
+/* Dark theme (optional) */
+body.dark { background:#121212; color:#e6e6e6; }
+body.dark .hero { background: linear-gradient(135deg, #0c3d6c, #071f36); color:#f7c600; }
+body.dark .receipt-card, body.dark .modal { background:#1b1b1b; color:#fff; border-color:#333;
+  box-shadow:0 1px 10px rgba(0,0,0,.5); }
+body.dark .lines-scroller { background:#16191f; border-color:#2c2f36; }
+body.dark .receipt-form input[type="text"], body.dark .receipt-form input[type="file"] {
+  background:#22252b; color:#fff; border:1px solid #3a3f47;
+}
+body.dark .home-footer { background:#0d1623; }
+
+/* Print: hide app chrome when printing from the app */
+@media print { .hero, .receipt-section, .empty, .modal-overlay, .home-footer { display:none !important; } }
+
+/* Spec row – 6 inputs with separators in the modal */
+.piece-row6 {
+  display: grid;
+  grid-template-columns: 70px 24px 90px 70px 24px 90px 36px 80px 28px 80px;
+  gap: 6px;
+  align-items: center;
+  width: 100%;
+}
+.piece-row6 input {
+  padding: .55rem .6rem; border: 1px solid #d7dbe3; border-radius: 8px; font-size: .95rem; background:#fff;
+}
+.piece-row6 .sep {
+  display: inline-block; text-align: center; opacity: 0.8; font-weight: 700;
+}
+
+/* Optional bigger lines preview in app (not print) */
+.lines { font-size: 15px; line-height: 1.65; white-space: pre-wrap; }
+.line  { margin: 3mm 0; }
+
+/* Buttons in modal footer */
+.modal-buttons { display:flex; justify-content:flex-end; gap:10px; padding-top:10px; border-top:1px solid #ececf3; margin-top:4px; }
+.submit-btn { background:#28a745; color:#fff; padding:.65rem 1.2rem; border:0; border-radius:10px; cursor:pointer; font-weight:700; }
+.cancel-btn { background:#dc3545; color:#fff; padding:.65rem 1.2rem; border:0; border-radius:10px; cursor:pointer; font-weight:700; }
+.submit-btn:hover { filter: brightness(.98); } .cancel-btn:hover { filter: brightness(.98); }
